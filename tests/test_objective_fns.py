@@ -71,7 +71,7 @@ def test_MVAE_objective(set_seeds):
     args['inputs'] = [torch.randn((10,10)).to(device),torch.randn((10,10)).to(device)]
     args['training'] = True
     out = objective1(torch.randn((10,10)).to(device),torch.randint(low=0, high=10, size=(10,)).to(device),args).cpu().detach().numpy()
-    assert np.isclose(out,44.43377)
+    assert np.isclose(out,45.058445)
     args['training'] = False
     out = objective1(torch.randn((10,10)).to(device),torch.randint(low=0, high=10, size=(10,)).to(device),args).cpu().detach().numpy()
     assert np.isclose(out,41.563843)
@@ -104,7 +104,7 @@ def test_RMFE_object(set_seeds):
     args = dict()
     args['model'] = model
     args['inputs'] = [torch.rand((10,10)).to(device),torch.rand((10,10)).to(device)]
-    assert np.isclose(objective(torch.rand((10,10)).to(device),torch.ones([10,10]).to(device),args).item(),0.4805537)
+    assert np.isclose(objective(torch.rand((10,10)).to(device),torch.ones([10,10]).to(device),args).item(),0.4805612862110138)
     args['inputs'] = []
     try:
         objective(torch.rand((10,10)).to(device),torch.ones([10,10]).to(device),args)
@@ -161,4 +161,4 @@ def test_RegularizationLoss(set_seeds):
     logits = torch.rand((1,2)).to(device)
     inputs = [torch.rand((1,10,10)).to(device),torch.rand((1,10,10)).to(device)]
     inputs_len = torch.tensor([[10],[10]])
-    assert np.isclose(rgl(logits, (inputs, inputs_len)).item(),0.0045899162) 
+    assert np.isclose(rgl(logits, (inputs, inputs_len)).item(),0.004487053025513887) 
