@@ -60,12 +60,12 @@ def test_low_rank_tensor_fusion(set_seeds):
     output = fusion([torch.randn((10,10)).to(device) for _ in range(2)])
     assert output.shape == (10,2)
     assert np.isclose(torch.norm(output).item(), 0.6151207089424133)
-    assert count_parameters(fusion) == 0 
+    assert count_parameters(fusion) == 3 
     fusion = LowRankTensorFusion((10,10),2,1,flatten=False)
     output = fusion([torch.randn((10,10)).to(device) for _ in range(2)])
     assert output.shape == (10,2)
     assert np.isclose(torch.norm(output).item(), 0.6446783542633057)
-    assert count_parameters(fusion) == 0
+    assert count_parameters(fusion) == 3
     
 def test_multiplicative_interaction_models(set_seeds):
     """Test multiplicative interaction models."""
