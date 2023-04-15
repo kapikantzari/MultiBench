@@ -87,40 +87,6 @@ class ConcatWithLinear(nn.Module):
         return self.fc(torch.cat(modalities, dim=self.concat_dim))
 
 
-class FiLM(nn.Module):
-    """Implements FiLM - Feature-Wise Affine Transformations of the Input.
-    
-    See https://arxiv.org/pdf/1709.07871.pdf for more details.
-    """
-
-    def __init__(self, gamma_generation_network, beta_generation_network, base_modal=0, gamma_generate_modal=1, beta_generate_modal=1):
-        """Initialize FiLM layer.
-        
-        :param gamma_generation_network: Network which generates gamma_parameters from gamma_generation_modal data.
-        :param beta_generation_network: Network which generates beta_parameters from beta_generation_modal data.
-        :param base_modal: Modality to apply affine transformation to.
-        :param gamma_generate_modal: Modality to generate gamma portion of affine transformation from.
-        :param beta_generate_modal: Modality to generate beta portion of affine transformation from.
-        """
-        super(FiLM, self).__init__()
-        self.g_net = gamma_generation_network
-        self.b_net = beta_generation_network
-        self.base_modal = base_modal
-        self.ggen_modal = gamma_generate_modal
-        self.bgen_modal = beta_generate_modal
-
-    def forward(self, modalities):
-        """
-        Forward Pass of FiLM.
-        
-        :param modalities: An iterable of modalities to combine. 
-        """
-        gamma = self.g_net(modalities[self.ggen_modal])
-        beta = self.b_net(modalities[self.bgen_modal])
-        return gamma * modalities[self.base_modal] + beta
-
-
-
 class MultiplicativeInteractions3Modal(nn.Module):
     """Implements 3-Way Modal Multiplicative Interactions."""
     

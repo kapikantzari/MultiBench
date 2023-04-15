@@ -45,9 +45,13 @@ def test_concat_linear(set_seeds):
 def test_tensor_fusion(set_seeds):
     """Test tensor fusion."""
     fusion = TensorFusion()
-    output = fusion([torch.randn((1,2,2)) for _ in range(2)])
+    inputs = [torch.randn((1,2,2)) for _ in range(2)]
+    output = fusion(inputs)
     assert output.shape == (1,2,9)
     assert np.isclose(torch.norm(output).item(), 5.0617828369140625)
+    output = fusion(input)
+    assert output.shape == (1,2,2)
+    assert np.isclose(torch.norm(output).item(), 2.7442679405212402)
     assert count_parameters(fusion) == 0 
     try:
         output = fusion([torch.randn((1,2,2)) for _ in range(3)])
