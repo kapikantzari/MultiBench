@@ -185,3 +185,15 @@ def test_MULTModel(set_seeds):
 
     mp = make_positions(torch.randn([1,3,3]), padding_idx=0, left_pad=1)
     assert (mp.numpy() == np.vstack([np.arange(3)+1 for _ in range(3)])).all()
+
+def test_EarlyFusionTransformer(set_seeds):
+    fusion = EarlyFusionTransformer(10)
+    out = fusion(torch.randn((3,10,10)))
+    assert out.shape == (3,1)
+    assert np.isclose(torch.norm(out).item() == 1.1512198448181152)
+
+def test_LateFusionTransformer(set_seeds):
+    fusion = EarlyFusionTransformer()
+    out = fusion(torch.randn((3,10,10)))
+    assert out.shape == (3,9)
+    assert np.isclose(torch.norm(out).item() == 5.1961259841918945)
