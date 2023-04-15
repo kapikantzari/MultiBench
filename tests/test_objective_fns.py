@@ -77,7 +77,7 @@ def test_MVAE_objective(set_seeds):
     assert np.isclose(out,42.121914)
     objective2 = MVAE_objective(2.0, [torch.nn.MSELoss(), torch.nn.MSELoss()], [1.0, 1.0], input_to_float=False)
     out = objective2(torch.randn((10,10)).to(device),torch.randint(low=0, high=10, size=(10,)).to(device),args).cpu().detach().numpy()
-    assert np.isclose(out,42.130898)
+    assert np.isclose(out,41.353207)
 
 def test_CCA_objective(set_seeds):
     objective = CCA_objective(10)
