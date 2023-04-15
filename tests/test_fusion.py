@@ -49,7 +49,7 @@ def test_tensor_fusion(set_seeds):
     output = fusion(inputs)
     assert output.shape == (1,2,9)
     assert np.isclose(torch.norm(output).item(), 5.0617828369140625)
-    output = fusion(input)
+    output = fusion([inputs[0]])
     assert output.shape == (1,2,2)
     assert np.isclose(torch.norm(output).item(), 2.7442679405212402)
     assert count_parameters(fusion) == 0 
