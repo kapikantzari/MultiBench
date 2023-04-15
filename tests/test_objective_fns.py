@@ -161,4 +161,4 @@ def test_RegularizationLoss(set_seeds):
     logits = torch.rand((1,2)).to(device)
     inputs = [torch.rand((1,10,10)).to(device),torch.rand((1,10,10)).to(device)]
     inputs_len = torch.tensor([[10],[10]])
-    assert np.isclose(rgl(logits, (inputs, inputs_len)).item(),0.0045899162)
+    assert np.isclose(rgl(logits, (inputs, inputs_len)).item(),0.0045899162) 
