@@ -190,10 +190,10 @@ def test_EarlyFusionTransformer(set_seeds):
     fusion = EarlyFusionTransformer(10)
     out = fusion(torch.randn((3,10,10)))
     assert out.shape == (3,1)
-    assert np.isclose(torch.norm(out).item() == 1.1512198448181152)
+    assert np.isclose(torch.norm(out).item(),1.1512198448181152)
 
 def test_LateFusionTransformer(set_seeds):
-    fusion = EarlyFusionTransformer()
+    fusion = LateFusionTransformer()
     out = fusion(torch.randn((3,10,10)))
     assert out.shape == (3,9)
-    assert np.isclose(torch.norm(out).item() == 5.1961259841918945)
+    assert np.isclose(torch.norm(out).item(),5.1961259841918945)
